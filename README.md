@@ -2,7 +2,7 @@ mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=f5782cfeafd
 
 mvn clean deploy
 
-mvn install tomcat7:deploy
+#mvn install tomcat7:deploy
 
 apt install docker.io
 
