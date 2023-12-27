@@ -71,17 +71,14 @@ su - postgres
 sudo wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.9.1.44547.zip
 sudo unzip sonarqube-8.9.1.44547.zip -d /opt
 sudo mv /opt/sonarqube-8.9.1.44547/ /opt/sonarqube
-sudo groupadd sonar
-sudo useradd -c "user to run SonarQube" -d /opt/sonarqube -g sonar sonar
-sudo chown sonar:sonar /opt/sonarqube -R
 
 vi /opt/sonarqube/conf/sonar.properties
-sonar.jdbc.username=sonar
-sonar.jdbc.password=sonar
+sonar.jdbc.username=root
+sonar.jdbc.password=root
 sonar.jdbc.url=jdbc:postgresql://localhost:5432/sonarqube
 
 vi /opt/sonarqube/bin/linux-x86-64/sonar.sh
-RUN_AS_USER=sonar
+RUN_AS_USER=root
 
 cd /opt/sonarqube/bin/linux-x86-64/
 ./sonar.sh start
