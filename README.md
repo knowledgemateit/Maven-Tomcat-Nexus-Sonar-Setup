@@ -4,4 +4,8 @@ mvn clean deploy
 
 mvn install tomcat7:deploy
 
+apt install docker.io
+
+systemctl start docker
+
 docker run -d --name tomcat -p 8090:8080 consol/tomcat-7.0
