@@ -54,15 +54,15 @@ sudo passwd postgres
 su - postgres
 
 > Create a new user by typing:
-   createuser sonar
+   createuser root
 > Switch to the PostgreSQL shell.
    psql
 > Set a password for the newly created user for SonarQube database.
-   ALTER USER sonar WITH ENCRYPTED password 'sonar';
+   ALTER USER root WITH ENCRYPTED password 'root';
 > Create a new database for PostgreSQL database by running:
-    CREATE DATABASE sonarqube OWNER sonar;
+    CREATE DATABASE sonarqube OWNER root;
 > grant all privileges to sonar user on sonarqube Database.
-   grant all privileges on DATABASE sonarqube to sonar;
+   grant all privileges on DATABASE sonarqube to root;
 > Exit from the psql shell:
    \q
 > Switch back to the sudo user by running the exit command.
