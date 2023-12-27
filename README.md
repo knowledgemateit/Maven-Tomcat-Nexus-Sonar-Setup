@@ -10,12 +10,12 @@ mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=f5782cfeafd
 
 mvn clean deploy
 
-#mvn install tomcat7:deploy
 
-apt install docker.io
+apt install docker.io -y
 
 systemctl start docker
 
 docker run -d --name tomcat -p 8090:8080 consol/tomcat-7.0
 
+docker cp target/java-tomcat-maven-example.war tomcat:/opt/tomcat/webapps/
 
