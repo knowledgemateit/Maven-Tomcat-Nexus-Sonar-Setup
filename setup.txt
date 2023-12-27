@@ -3,6 +3,8 @@ ubuntu 20.04
 Nexus:
 sudo apt update
 
+apt install openjdk-11-jre-headless
+
 sudo apt install tree maven wget unzip -y 
 
 update-alternatives --config java
