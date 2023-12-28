@@ -30,9 +30,6 @@ sudo tar xzf nexus-3.29.2-02-unix.tar.gz -C /opt/nexus --strip-components=1
 vi /opt/nexus/bin/nexus.rc
  run_as_user="root"
  
-vi /opt/nexus/bin/nexus.vmoptions
- change ../sonatype-work to ./sonatype-work
-
 sudo /opt/nexus/bin/nexus start
 
 sudo cat /opt/nexus/sonatype-work/nexus3/admin.password
