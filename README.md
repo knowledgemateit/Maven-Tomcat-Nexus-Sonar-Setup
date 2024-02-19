@@ -11,10 +11,15 @@ mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=f5782cfeafd
 Nexus:
 
 vi /etc/maven/settings.xml
+
     <server>
+    
       <id>deploymentRepo</id>
+      
       <username>admin</username>
+      
       <password>1d7edc68-4300-43d0-b648-assc7d4c7049fd</password>
+      
     </server>
 
 mvn clean deploy
