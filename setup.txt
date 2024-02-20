@@ -3,9 +3,7 @@ ubuntu 20.04
 Nexus:
 sudo apt update
 
-apt install openjdk-11-jre-headless openjdk-8-jdk -y
-
-sudo apt install tree maven wget unzip -y 
+apt install openjdk-11-jre-headless openjdk-8-jdk tree maven wget unzip docker.io -y
 
 update-alternatives --config java
 There are 2 choices for the alternative java (providing /usr/bin/java).
