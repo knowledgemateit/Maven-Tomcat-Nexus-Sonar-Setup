@@ -23,6 +23,8 @@ cat /opt/nexus/sonatype-work/nexus3/admin.password
 
 
 # SonarQube
+
+# Postgres Installation
 sudo update-alternatives --set java /usr/lib/jvm/java-11-openjdk-amd64/bin/java
 sudo apt-get update -y
 sudo sysctl -w vm.max_map_count=262144
@@ -37,6 +39,7 @@ sudo -i -u postgres bash -c "psql -c \"CREATE USER sonar WITH PASSWORD 'sonar';\
 sudo -i -u postgres bash -c "psql -c \"CREATE DATABASE sonarqube OWNER sonar;\""
 sudo -i -u postgres bash -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE sonarqube to sonar;\""
 
+# SonarQube Installation
 cd /opt
 sudo wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.9.1.44547.zip
 sudo unzip sonarqube-8.9.1.44547.zip -d /opt
