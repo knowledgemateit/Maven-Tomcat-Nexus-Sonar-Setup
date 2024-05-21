@@ -3,7 +3,7 @@ ubuntu 20.04
 
 # Maven Git tree wget unzip 
 sudo apt update -y
-sudo apt-get install openjdk-8-jre -y# Java
+sudo apt-get install openjdk-8-jre -y
 sudo apt install openjdk-11-jre-headless -y
 
 sudo apt install maven git tree wget unzip -y
