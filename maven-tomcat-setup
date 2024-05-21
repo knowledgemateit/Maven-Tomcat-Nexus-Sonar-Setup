@@ -1,0 +1,42 @@
+git clone https://github.com/knowledgemateit/Maven-Tomcat-Nexus-Sonar-Setup.git
+cd Maven-Tomcat-Nexus-Sonar-Setup/	 
+mvn package
+
+# Tomcat
+cd /opt/
+mkdir /opt/tomcat
+wget https://downloads.apache.org/tomcat/tomcat-10/v10.1.24/bin/apache-tomcat-10.1.24.tar.gz
+sudo tar xzf apache-tomcat-10.1.23.tar.gz -C /opt/tomcat --strip-components=1 
+sudo groupadd tomcat
+sudo useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat
+sudo chown -R tomcat: /opt/tomcat
+sudo sh -c 'chmod +x /opt/tomcat/bin/*.sh' 
+
+
+#tomcat
+vi /opt/tomcat/conf/tomcat-users.xml
+
+
+		<!-- user manager can access only the manager section -->
+		<role rolename="manager-gui" />
+		<user username="manager" password="admin" roles="manager-gui" />
+
+		<!-- user admin can access manager and admin section both -->
+		<role rolename="admin-gui" />
+		<user username="admin" password="admin" roles="manager-gui,admin-gui" />
+
+
+ vi /opt/tomcat/webapps/manager/META-INF/context.xml
+
+		  <!-- <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+				 allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" /> -->
+		  ...
+		</Context>
+
+sudo update-alternatives --set java /usr/lib/jvm/java-11-openjdk-amd64/bin/java
+
+cd /opt/tomcat/bin/
+
+./startup.sh
+
+cp /opt/Maven-Tomcat-Nexus-Sonar-Setup/target/java-tomcat-maven-example.war /opt/tomcat/webapps/
