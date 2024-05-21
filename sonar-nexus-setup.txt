@@ -18,6 +18,9 @@ echo 'run_as_user="root"' | sudo tee -a /opt/nexus/bin/nexus.rc
 sudo /opt/nexus/bin/nexus start
 cat /opt/nexus/sonatype-work/nexus3/admin.password
 
+# Nexus username:admin   and Password  :  /opt/nexus/sonatype-work/nexus3/admin.password
+# Check with publicIP:8081 for Nexus
+
 
 # SonarQube
 sudo update-alternatives --set java /usr/lib/jvm/java-11-openjdk-amd64/bin/java
@@ -51,8 +54,8 @@ cd /opt/sonarqube/bin/linux-x86-64/
 sudo -u sonar ./sonar.sh start
 sudo -u sonar ./sonar.sh status
 
-Port : 9000
-Login to SonarQube  with default administrator username and password is admin.
+# SonarQube username:admin   and Password  :  admin
+# Check with publicIP:9000 for SonarQube
 
 
 #sonar
