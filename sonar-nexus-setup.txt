@@ -1,4 +1,4 @@
-Installation of nexus and sonar in Ubuntu --> Nexus 8081 and sonar 9000
+Installation of nexus and sonar --> Nexus 8081 and sonar 9000
 ubuntu 20.04   - 4GB RAM and 20GB HardDisk
 
 # Maven Git tree wget unzip 
