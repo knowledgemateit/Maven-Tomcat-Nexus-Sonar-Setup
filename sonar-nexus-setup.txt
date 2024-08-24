@@ -5,7 +5,6 @@ ubuntu 20.04   - 4GB RAM and 20GB HardDisk
 sudo apt update -y
 sudo apt-get install openjdk-8-jre -y
 sudo apt install openjdk-11-jre-headless -y
-
 sudo apt install maven git tree wget unzip -y
 
 # Nexus
@@ -16,7 +15,7 @@ sudo mkdir /opt/nexus
 sudo tar xzf nexus-3.29.2-02-unix.tar.gz -C /opt/nexus --strip-components=1
 echo 'run_as_user="root"' | sudo tee -a /opt/nexus/bin/nexus.rc
 sudo /opt/nexus/bin/nexus start
-cat /opt/nexus/sonatype-work/nexus3/admin.password
+cat /opt/sonatype-work/nexus3/admin.password
 
 # Nexus username:admin   and Password  :  /opt/nexus/sonatype-work/nexus3/admin.password
 # Check with publicIP:8081 for Nexus
