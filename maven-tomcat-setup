@@ -1,5 +1,7 @@
 If it is amazon linux 2  : sudo amazon-linux-extras install java-openjdk11
 
+yum install git tree maven -y
+
 git clone https://github.com/knowledgemateit/Maven-Tomcat-Nexus-Sonar-Setup.git
 cd Maven-Tomcat-Nexus-Sonar-Setup/	 
 mvn package
@@ -7,8 +9,8 @@ mvn package
 # Tomcat
 cd /opt/
 mkdir /opt/tomcat
-wget https://downloads.apache.org/tomcat/tomcat-10/v10.1.24/bin/apache-tomcat-10.1.24.tar.gz
-sudo tar xzf apache-tomcat-10.1.24.tar.gz -C /opt/tomcat --strip-components=1 
+wget https://downloads.apache.org/tomcat/tomcat-10/v10.1.28/bin/apache-tomcat-10.1.28.tar.gz
+sudo tar xzf apache-tomcat-10.1.28.tar.gz -C /opt/tomcat --strip-components=1 
 sudo groupadd tomcat
 sudo useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat
 sudo chown -R tomcat: /opt/tomcat
