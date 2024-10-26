@@ -1,4 +1,6 @@
-If it is amazon linux 2  : sudo amazon-linux-extras install java-openjdk11
+If it is amazon linux 2  : 
+
+sudo amazon-linux-extras install java-openjdk11
 
 yum install git tree maven -y
 
