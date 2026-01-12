@@ -1,0 +1,88 @@
+Apache Maven: Build Tool
+
+pom - project object Model
+
+
+.war - web archive
+.jar - java archive
+.ear - enterprise archive
+
+
+sudo apt update && sudo apt upgrade -y
+sudo apt install openjdk-21-jdk -y
+sudo apt install maven -y
+
+
+1 mvn clean:
+
+Deletes the target folder
+
+2 mvn validate
+
+Pre-build sanity check.
+
+Checks if the project is correct and all info is available.
+
+
+
+3 mvn compile
+
+Compiles the source code (.java to .class)
+
+Checking for syntax errors.
+
+
+4 mvn test
+
+Runs unit tests (JUnit/TestNG).
+
+Quality gate in Jenkins pipelines.
+
+5 mvn package
+
+Bundles compiled code into a JAR/WAR.
+
+Creating the artifact for deployment.
+
+6 mvn install
+
+Puts the package in your Local Repository.
+
+Sharing a library between local projects.
+
+
+
+7 mvn deploy
+
+Pushes the package to a Remote Repository (Nexus/Artifactory).
+
+
+Repository:
+Centeral : Apache site (repo.maven.apache)
+Remote: Server
+local : /root/.m2
+
+
+
+apache tomcat : 8080
+
+Web application server
+
+sudo apt install tomcat10 tomcat10-admin -y
+sudo systemctl enable tomcat10
+sudo systemctl restart tomcat10
+
+vi /etc/tomcat10/tomcat-users.xml
+
+		<!-- user manager can access only the manager section -->
+		<role rolename="manager-gui" />
+		<user username="manager" password="admin" roles="manager-gui" />
+
+		<!-- user admin can access manager and admin section both -->
+		<role rolename="admin-gui" />
+		<user username="admin" password="admin" roles="manager-gui,admin-gui" />
+
+save it
+
+
+cp target/java-tomcat-maven-example.war /var/lib/tomcat10/webapps/
