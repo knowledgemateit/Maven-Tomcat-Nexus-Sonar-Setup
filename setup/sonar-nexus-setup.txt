@@ -21,6 +21,20 @@ cat /opt/sonatype-work/nexus3/admin.password
 # Check with publicIP:8081 for Nexus
 
 
+#nexus  with Maven
+vi /etc/maven/settings.xml
+<server>
+  <id>deploymentRepo</id>  
+  <username>admin</username> 
+  <password>01fc6ef3-c30e-4db2-86be-0c7f08308a4e</password>
+</server>
+
+mvn clean deploy
+
+
+
+
+
 # SonarQube
 
 # Postgres Installation
@@ -63,15 +77,5 @@ sudo -u sonar ./sonar.sh status
 #sonar
   mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=1d5deb5b4301dabc2afc5e25769d89b5ce915f20
 
-#nexus
 
-vi /etc/maven/settings.xml
-<server>
-  <id>deploymentRepo</id>  
-  <username>admin</username> 
-  <password>1d7edc68-4300-43d0-b648-assc7d4c7049fd</password>
-  
-</server>
-
-mvn clean deploy
 
