@@ -10,9 +10,9 @@ sudo apt install maven git tree wget unzip -y
 # Nexus
 sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
 cd /opt/
-sudo wget https://sonatype-download.global.ssl.fastly.net/repository/downloads-prod-group/3/nexus-3.29.2-02-unix.tar.gz
+sudo wget https://download.sonatype.com/nexus/3/nexus-3.87.1-01-linux-x86_64.tar.gz
 sudo mkdir /opt/nexus
-sudo tar xzf nexus-3.29.2-02-unix.tar.gz -C /opt/nexus --strip-components=1
+sudo tar xzf nexus-3.87.1-01-linux-x86_64.tar.gz -C /opt/nexus --strip-components=1
 echo 'run_as_user="root"' | sudo tee -a /opt/nexus/bin/nexus.rc
 sudo /opt/nexus/bin/nexus start
 cat /opt/sonatype-work/nexus3/admin.password
