@@ -38,56 +38,72 @@ PollApp/
 
 ## ⚙️ Environment Setup (Amazon Linux)
 
-### 1. Java Installation
+Tomcat: Web Server
+git,java,Maven,Docker:
 
 ```bash
 sudo dnf update -y
-sudo dnf install java-17-amazon-corretto-devel -y
+sudo dnf install java-17-amazon-corretto-devel maven git -y
+
+sudo dnf install docker -y
+systemctl start docker 
+systemctl enable docker
 ```
-
-### 2. Resource Optimization (Critical for 1GB RAM Servers)
-
-Running Tomcat, SonarQube, and Nexus concurrently on a `t2.micro` requires Swap space:
 
 ```bash
-sudo dd if=/dev/zero of=/swapfile bs=128M count=16
-sudo chmod 600 /swapfile
-sudo mkswap /swapfile
-sudo swapon /swapfile
-echo '/swapfile swap swap defaults 0 0' | sudo tee -a /etc/fstab
+sudo docker run -d -p 8080:8080 --name tomcat-prod \
+  --memory="512m" \
+  -e JAVA_OPTS="-Xms256m -Xmx256m" \
+  tomcat:10.1-jdk17-corretto
 ```
-
----
-
-## 🐱 Apache Tomcat 10 Setup
-
-Tomcat 10 hosts the compiled `.war` artifact.
-
-### Installation
 
 ```bash
-sudo groupadd tomcat
-sudo useradd -g tomcat -d /opt/tomcat tomcat
-cd /tmp
-wget https://archive.apache.org/dist/tomcat/tomcat-10/v10.1.18/bin/apache-tomcat-10.1.18.tar.gz
-sudo mkdir /opt/tomcat
-sudo tar -xf apache-tomcat-10.1.18.tar.gz -C /opt/tomcat --strip-components=1
+cat <<EOF > tomcat-users.xml
+<tomcat-users>
+  <role rolename="manager-script"/>
+  <role rolename="manager-gui"/>
+  <role rolename="admin-gui"/>
+  <user username="admin" password="admin123" roles="manager-gui,admin-gui,manager-script"/>
+</tomcat-users>
+EOF
 ```
 
-### Configuration
-
-- Set file permissions for the `tomcat` user.
-- Configure `tomcat-users.xml` with Manager GUI credentials.
-- Comment out `RemoteAddrValve` in `context.xml` to allow external access to the Manager App.
-
-### Service Management
+# Copy it into the container
+```bash
+sudo docker cp tomcat-users.xml tomcat-prod:/usr/local/tomcat/conf/tomcat-users.xml
+sudo docker exec -it tomcat-prod mv /usr/local/tomcat/webapps.dist/manager /usr/local/tomcat/webapps/
+sudo docker exec -it tomcat-prod mv /usr/local/tomcat/webapps.dist/host-manager /usr/local/tomcat/webapps/
+sudo docker exec -it tomcat-prod mv /usr/local/tomcat/webapps.dist/ROOT /usr/local/tomcat/webapps/
+```
 
 ```bash
-sudo systemctl start tomcat
-sudo systemctl enable tomcat
+cat <<EOF > context.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiResourceLocking="false" privileged="true" >
+  <CookieProcessor className="org.apache.tomcat.util.http.Rfc6265CookieProcessor"
+                   sameSiteCookies="strict" />
+  <Manager sessionAttributeValueClassNameFilter="java\.lang\.(?:Boolean|Integer|Long|Number|String)|org\.apache\.catalina\.filters\.CsrfPreventionFilter\$LruCache(?:\$1)?|java\.util\.(?:Linked)?HashMap"/>
+</Context>
+EOF
 ```
 
----
+```bash
+sudo docker cp context.xml tomcat-prod:/usr/local/tomcat/webapps/manager/META-INF/context.xml
+sudo docker cp context.xml tomcat-prod:/usr/local/tomcat/webapps/host-manager/META-INF/context.xml
+```
+
+```bash
+sudo docker restart tomcat-prod
+```
+
+```bash
+git clone https://github.com/knowledgemateit/Project-Maven-Tomcat-Nexus-Sonar-Setup-PollApp.git
+```
+
+```bash
+sudo docker cp target/PollApp.war tomcat-prod:/usr/local/tomcat/webapps
+```
+
 
 ## 🔍 SonarQube: Code Quality Analysis
 
