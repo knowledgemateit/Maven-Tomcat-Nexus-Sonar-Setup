@@ -115,9 +115,35 @@ SonarQube is deployed via Docker and analyzes code for bugs, vulnerabilities, an
 ### Deployment
 
 ```bash
-sudo sysctl -w vm.max_map_count=262144
-sudo docker run -d --name sonarqube -p 9000:9000 sonarqube:lts-community
+sudo docker run -d -p 9000:9000 --name sonarqube \
+  --memory="1.5g" \
+  -e SONAR_WEB_JAVAOPTS="-Xms512m -Xmx512m" \
+  -e SONAR_CE_JAVAOPTS="-Xms512m -Xmx512m" \
+  -e SONAR_SEARCH_JAVAOPTS="-Xms512m -Xmx512m" \
+  sonarqube:lts-community
 ```
+
+```bash
+# Apply the change immediately
+sudo sysctl -w vm.max_map_count=524288
+
+# Make the change permanent (so it survives a reboot)
+echo "vm.max_map_count=524288" | sudo tee -a /etc/sysctl.conf
+
+sudo rm -rf /var/lib/jenkins/.sonar/cache
+docker start sonarqube
+
+sudo dd if=/dev/zero of=/swapfile bs=128M count=16
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+echo '/swapfile swap swap defaults 0 0' | sudo tee -a /etc/fstab
+free -h
+sudo sysctl -w vm.max_map_count=262144
+echo "vm.max_map_count=262144" | sudo tee -a /etc/sysctl.conf
+sudo docker restart sonarqube
+```
+
 
 Access the dashboard at: `http://<EC2-IP>:9000`
 
