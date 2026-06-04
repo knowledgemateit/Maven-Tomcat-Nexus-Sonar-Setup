@@ -99,6 +99,9 @@ sudo docker restart tomcat-prod
 ```bash
 git clone https://github.com/knowledgemateit/Project-Maven-Tomcat-Nexus-Sonar-Setup-PollApp.git
 ```
+```bash
+mvn clean package
+```
 
 ```bash
 sudo docker cp target/PollApp.war tomcat-prod:/usr/local/tomcat/webapps
