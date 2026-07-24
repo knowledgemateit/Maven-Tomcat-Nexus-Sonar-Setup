@@ -102,15 +102,16 @@ admin123
 
 cd /etc/maven/settings.xml
 
-<settings>
-  <servers>
-    <server>
-      <id>nexus-snapshots</id>
+<server>
+      <id>maven-snapshots</id>
       <username>admin</username>
-      <password>admin123</password>
+      <password>42ca00dd-07de-4291-90b8-91f7782725ce</password>
     </server>
-  </servers>
-</settings>
+    <server>
+      <id>maven-releases</id>
+      <username>admin</username>
+      <password>42ca00dd-07de-4291-90b8-91f7782725ce</password>
+    </server>
 
 
 export MAVEN_OPTS="-Xmx256m"
